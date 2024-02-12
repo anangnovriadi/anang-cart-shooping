@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.main', ['count_total' => $count])
 
 @section('content')
     <div class="container px-6 mx-auto">
@@ -10,7 +10,15 @@
                 <div class="flex items-end justify-end w-full bg-cover">
                 </div>
                 <div class="p-3">
-                    <h4 class="text-gray-700">{{ $product->name }}</h4>
+                    <div class="flex justify-between">
+                        <p class="text-gray-700">{{ $product->name }}</p>
+                        <form action="{{ route('add.cart') }}" method="post">
+                            @csrf
+                            <input type="hidden" name="product_id" value="{{ $product->id }}" />
+                            <button type="submit" class="focus:outline-none"><i class="fa-solid fa-circle-plus"></i> cart</button>
+                        </form>
+                        
+                    </div>
                     <span class="mt-2 text-gray-500">@currency($product->price)</span>
                 </div>
             </div>

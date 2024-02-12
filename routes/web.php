@@ -23,6 +23,6 @@ Route::get('/', [ProductController::class, 'list'])->name('product.list');
 Route::get('/cart', [CartController::class, 'list'])->name('cart.list');
 Route::post('/update-cart', [CartController::class, 'updateCart'])->name('cart.update');
 Route::post('/update-discount', [CartController::class, 'updateDiscount'])->name('discount.update');
-// Route::post('/delete-cart', [CartController::class, 'destroy'])->name('cart.delete');
 Route::get('/delete-cart/{id}', [CartController::class, 'destroy'])->name('cart.delete');
 Route::post('/update/qty', [CartController::class, 'updateQty'])->name('update.qty');
+Route::post('/add/cart', [CartController::class, 'addCart'])->name('add.cart');

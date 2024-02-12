@@ -25,7 +25,7 @@
                 <nav  class="p-6 mt-4 text-white bg-blue-500 rounded-md sm:flex sm:justify-center sm:items-center">
                     <div class="flex flex-col sm:flex-row">
                         <a class="text-white hover:underline sm:mx-3 sm:mt-0" href="/">HOME</a>
-                        <a class="text-white hover:underline sm:mx-3 sm:mt-0" href="{{ route('cart.list')}}">CART</a>
+                        <a class="text-white hover:underline sm:mx-3 sm:mt-0" href="{{ route('cart.list')}}">CART <span class="p-1 rounded-lg bg-red-600">{{ $count_total }}</span></a>
                     </div>
                 </nav>
             </div>

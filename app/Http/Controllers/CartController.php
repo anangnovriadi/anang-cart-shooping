@@ -47,8 +47,22 @@ class CartController extends Controller
         }
         
         $qty_data = [1, 2, 3, 4];
+        $count = DB::table('carts')->count();
 
-        return view('cart', compact('carts', 'total', 'code_discount', 'qty_data'));
+        return view('cart', compact('carts', 'total', 'code_discount', 'qty_data', 'count'));
+    }
+
+    public function addCart(Request $req) {
+        $product = Product::find($req->input('product_id'));
+
+        $cart = Cart::create([
+            'product_id' => $req->input('product_id'),
+            'qty' => 1,
+            'code_discount' => '',
+            'sub_total' => $product->price
+        ]);
+
+        return redirect()->route('product.list');
     }
 
     public function updateCart(Request $req) {

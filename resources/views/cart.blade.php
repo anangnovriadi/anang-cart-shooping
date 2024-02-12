@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.main', ['count_total' => $count])
 
 
 @section('content')
@@ -32,7 +32,7 @@
                                         <input type="hidden" name="id" value="{{ $item->id }}"/>
                                         <div class="flex gap-4 items-center">
                                             <a href="#">
-                                                <img src="{{ $item->image }}" class="w-14 h-14 rounded" alt="Thumbnail">
+                                                <img src="{{ $item->image }}" class="w-14 h-144 rounded" alt="Thumbnail">
                                             </a>
                                             <div>
                                                 <p class="mb-2">{{ $item->name }}</p>  
