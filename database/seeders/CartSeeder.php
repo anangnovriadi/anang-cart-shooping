@@ -19,5 +19,12 @@ class CartSeeder extends Seeder
             'code_discount' => '',
             'sub_total' => 100000,
         ]);
+
+        Cart::create([
+            'product_id' => 2,
+            'qty' => 1,
+            'code_discount' => '',
+            'sub_total' => 400000,
+        ]);
     }
 }

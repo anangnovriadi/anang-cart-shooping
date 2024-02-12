@@ -46,16 +46,15 @@ class CartController extends Controller
             }
         }
         
+        $qty_data = [1, 2, 3, 4];
 
-        return view('cart', compact('carts', 'total', 'code_discount'));
+        return view('cart', compact('carts', 'total', 'code_discount', 'qty_data'));
     }
 
     public function updateCart(Request $req) {
         $cart = $post = Cart::findOrFail($req->input('id'));
         $product = Product::findOrFail($cart->product_id);
         $subTotal = $req->input('qty') * $product->price;
-
-        $discount = $subTotal - ($subTotal * 0.10);
 
         $cart->update([
             'qty' => $req->input('qty'),
@@ -74,6 +73,19 @@ class CartController extends Controller
     public function destroy($id) {
         $cart = Cart::find($id);
         $cart->delete();
+
+        return redirect()->route('cart.list');
+    }
+
+    public function updateQty(Request $req) {
+        $cart = $post = Cart::findOrFail($req->input('id'));
+        $product = Product::findOrFail($cart->product_id);
+        $subTotal = $req->input('qty') * $product->price;
+
+        $cart->update([
+            'qty' => $req->input('qty'),
+            'sub_total' => $subTotal
+        ]);
 
         return redirect()->route('cart.list');
     }

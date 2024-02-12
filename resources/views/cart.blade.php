@@ -21,7 +21,6 @@
                                 <th class="text-left">Kuantitas</th>
                                 <th class="text-left">Subtotal</th>
                                 <th class="text-left">Hapus</th>
-                                <th class="text-left">Action</th>
                             </tr>
                             </thead>
                             <form method="post" action="{{ url('update-cart') }}">
@@ -33,7 +32,7 @@
                                         <input type="hidden" name="id" value="{{ $item->id }}"/>
                                         <div class="flex gap-4 items-center">
                                             <a href="#">
-                                                <img src="{{ $item->image }}" class="w-20 rounded" alt="Thumbnail">
+                                                <img src="{{ $item->image }}" class="w-14 h-14 rounded" alt="Thumbnail">
                                             </a>
                                             <div>
                                                 <p class="mb-2">{{ $item->name }}</p>  
@@ -42,29 +41,29 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <p class="mb-2">{{ $item->price }}</p>  
+                                        <p class="mb-2">@currency($item->price)</p>  
                                     </td>
                                     <td>
-                                        <p class="mb-2">
-                                        <select name="qty" class="w-14 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                            @if ($item->qty == 1)
-                                                <option selected value="1">1</option>
-                                                <option value="2">2</option>
-                                            @elseif ($item->qty == 2)
-                                                <option value="1">1</option>
-                                                <option selected value="2">2</option>
-                                            @endif
-                                        </select>
+                                        <p class="mb-2 flex gap-2">
+                                        <form action="{{ route('update.qty')}}" method="post" class="flex gap-2">
+                                            @csrf
+                                            <select id="qty" name="qty" class="w-14 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                                <option value="1" {{ ($item->qty === 1) ? 'selected': '' }}>1</option>
+                                                <option value="2" {{ ($item->qty === 2) ? 'selected': '' }}>2</option>
+                                                <option value="3" {{ ($item->qty === 3) ? 'selected': '' }}>3</option>
+                                                <option value="4" {{ ($item->qty === 4) ? 'selected': '' }}>4</option>
+                                                <option value="5" {{ ($item->qty === 5) ? 'selected': '' }}>5</option>
+                                            </select>
+                                            <input type="hidden" name="id" value="{{ $item->id }}" />
+                                            <button type="submit" class="btn btn-primary">Update</button>
+                                        </form>
                                         </p>  
                                     </td>
                                     <td>
-                                        <p class="mb-2">{{ $item->sub_total }}</p>  
+                                        <p class="mb-2">@currency($item->sub_total)</p>  
                                     </td>
                                     <td>
                                         <a class="btn btn-danger" href="{{ url('delete-cart', ['id' => $item->id]) }}">Delete</a>
-                                    </td>
-                                    <td>
-                                        <button type="submit" class="btn btn-primary text-white">Reload</button>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -76,7 +75,7 @@
                             <a data-toggle="modal" data-target="#exampleModal" class="font-bold text-yellow-500 cursor-pointer" style="color: rgba(245,158,11,var(--tw-text-opacity))"><i class="fa-solid fa-tag"></i> Gunakan kode diskon / reward</a>
                         </div>
                         <div class="text-right p-2">
-                            <p class="font-bold">Total: {{ $total }}</p>
+                            <p class="font-bold">Total: @currency($total)</p>
                         </div>
                     </div>
                 </div>
