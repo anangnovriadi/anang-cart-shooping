@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,5 +16,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    // return view('welcome');
 });
+
+Route::get('/', [ProductController::class, 'list'])->name('product.list');
+Route::get('/cart', [CartController::class, 'list'])->name('cart.list');
+Route::post('/update-cart', [CartController::class, 'updateCart'])->name('cart.update');
+Route::post('/update-discount', [CartController::class, 'updateDiscount'])->name('discount.update');
+// Route::post('/delete-cart', [CartController::class, 'destroy'])->name('cart.delete');
+Route::get('/delete-cart/{id}', [CartController::class, 'destroy'])->name('cart.delete');
